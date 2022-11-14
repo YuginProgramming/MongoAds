@@ -12,27 +12,40 @@ server.set('views', './views');
 server.use(express.static('./static'));
 server.use(express.json());
 
-server.get('/', (req, res) => {
-    res.render('main');
+server.get('/', async (req, res) => {
+    let front = await getAll();
+    //res.render('main', {front: front[1].fill});
+    res.render('main', {front: front});
 });
     
-server.post('/test', upload.none(), async (req, res) => {
+server.post('/ads', upload.none(), async (req, res) => {
   // зробить стрілочну 
   async function writeData (data) {
     console.log('live');
     const doc = await AdsModel.create({
         fill: data 
     });
-    //console.log(doc);
   };
   async function readData () {
       return await AdsModel.find({});
   }
   await writeData(req.body.Name);
-  const result = await readData();
-  console.log(result)
-  //res.send(result)
+  //const getAll = await readData();
+  //console.log(getAll)
 }); 
+
+const getAll = async () => {
+  let posts;
+  try {
+    posts = await AdsModel.find({});
+  } catch(err) {
+    console.log(err);
+    posts = err;
+  }
+  return posts;
+  };
+
+//server.get('/getall', getAll);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);

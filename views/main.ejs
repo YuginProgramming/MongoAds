@@ -10,16 +10,33 @@
 <body>
     
     <form method="post" enctype="multipart/form-data" action="/upload" name="testForm">
-        <input type="text" name="Name">
-        <!-- <input type="text" name="Data">
-        <input type="date" name="BirthDay">
-        <input type="email" name="Email"> -->
+        <div>
+            <h1>Форма оголошень</h1>
+            <input type="text" name="Name" placeholder="назва"><br>
+            <textarea type="text" name="Idea" class="text" placeholder="публікація"></textarea><br>
+            <input type="text" name="User" placeholder="користувач">
+        </div>
+        
+        <div>
+            <h1>Форма відгуків</h1>
+            <textarea type="text" name="opinion" class="text" placeholder="відгук"></textarea><br>
+            <input type="text" name="User" placeholder="користувач">
+            <input type="text" name="Id" placeholder="номер оголошення">
+        </div>
+
         <button type="submit">send</button>
         </form>
 
-        <div>
-            
-        </div>
+        <section class="main">
+            <h1>Оголошення</h1>
+            <% for(let i = 0; i < front.length; ++i) { %>
+               <p>
+                <li><a href = "/<%=front[i].fill %>"> <%= front[i].fill %> </a>
+                </li>
+                
+               </p>
+           <% } %>
+        </section>
 
     <script>
         const formEl = document.forms.testForm;
@@ -28,13 +45,38 @@
             
             const formdata = new FormData(ev.target);
             
-            const { data } = await axios.post('/test', formdata);
+            const { data } = await axios.post('/ads', formdata);
         });
 
         // setTimeout(async() => {
         //     await axios.post('/test', {bio: {name: 'Yevhen', surname: 22}});
         // }, 1000);
 
+    </script>
+    <script>
+
+// не працює але дорого як память 
+document.addEventListener('load', async  (e) => {
+    e.preventDefault();
+    let content = await axios.get('/getmeall');
+    let render = content.data;
+    
+    
+    console.log(content.data[0]._id)
+    
+    for (key in render) {}
+
+    
+    for (key in render) {
+        posts.innerHTML += `
+        <li class="post">
+        <h1>${render[key].title}</h1>
+        <h3>${render[key].text}</h3>
+        </li>
+        `
+    }
+
+});
     </script>
 </body>
 </html>
