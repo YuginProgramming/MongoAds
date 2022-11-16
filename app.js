@@ -5,6 +5,7 @@ const server = express();
 const db = require('./db');
 //підключив конфіг до моделі колекції
 const AdsModel = require('./models/ads');
+const CommentModel = require('./models/comments');
 
 server.set('view engine', 'ejs');
 server.set('views', './views');
@@ -15,13 +16,23 @@ server.use(express.json());
 server.get('/', async (req, res) => {
     let front = await getAll();
     //res.render('main', {front: front[1].fill});
+    //напхати можна в об'єк функцій 
     res.render('main', {front: front});
 });
     
 server.post('/ads', upload.none(), async (req, res) => {
-  // зробить стрілочну 
+  //console.log(data)
+  
+  // запис даних  
+  const createComment = async () => {
+    const commentDoc = await CommentModel.create({
+      comment: req.body.Opinion
+      //req.body.Opinion
+  });
+  }
+  createComment();
+  
   async function writeData (data) {
-    console.log('live');
     const doc = await AdsModel.create({
         fill: data 
     });

@@ -19,7 +19,7 @@
         
         <div>
             <h1>Форма відгуків</h1>
-            <textarea type="text" name="opinion" class="text" placeholder="відгук"></textarea><br>
+            <textarea type="text" name="Opinion" class="text" placeholder="відгук"></textarea><br>
             <input type="text" name="User" placeholder="користувач">
             <input type="text" name="Id" placeholder="номер оголошення">
         </div>
@@ -33,7 +33,6 @@
                <p>
                 <li><a href = "/<%=front[i].fill %>"> <%= front[i].fill %> </a>
                 </li>
-                
                </p>
            <% } %>
         </section>
@@ -52,31 +51,6 @@
         //     await axios.post('/test', {bio: {name: 'Yevhen', surname: 22}});
         // }, 1000);
 
-    </script>
-    <script>
-
-// не працює але дорого як память 
-document.addEventListener('load', async  (e) => {
-    e.preventDefault();
-    let content = await axios.get('/getmeall');
-    let render = content.data;
-    
-    
-    console.log(content.data[0]._id)
-    
-    for (key in render) {}
-
-    
-    for (key in render) {
-        posts.innerHTML += `
-        <li class="post">
-        <h1>${render[key].title}</h1>
-        <h3>${render[key].text}</h3>
-        </li>
-        `
-    }
-
-});
     </script>
 </body>
 </html>

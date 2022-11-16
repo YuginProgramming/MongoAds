@@ -14,5 +14,5 @@ const generalSchema = new Schema({
 });
 
 //Назва таблиці
-const modelComment = mongoose.model('Comment', generalSchema);
-module.exports = modelComment;
+const model = mongoose.model('Comment', generalSchema);
+module.exports = model;
