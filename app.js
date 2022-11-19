@@ -13,6 +13,25 @@ server.set('views', './views');
 server.use(express.static('./static'));
 server.use(express.json());
 
+server.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const adContent = await getOne(id);
+  const adPlus = { title: adContent.fill, content: adContent.comment };
+  res.render('ads', adPlus);
+})
+
+const getOne = async (id) => {
+  let postId;
+  try {
+    postId = await AdsModel.findOne({_id: id});
+  } catch(err) {
+    console.log(err);
+    postId = err;
+  }
+  return postId;
+}
+
+
 server.get('/', async (req, res) => {
     let front = await getAll();
     //res.render('main', {front: front[1].fill});
@@ -26,8 +45,8 @@ server.post('/ads', upload.none(), async (req, res) => {
   // запис даних  
   const createComment = async () => {
     const commentDoc = await CommentModel.create({
-      comment: req.body.Opinion
-      //req.body.Opinion
+      comment: req.body.Opinion,
+      ad: req.body.Id
   });
   }
   createComment();
@@ -41,8 +60,6 @@ server.post('/ads', upload.none(), async (req, res) => {
       return await AdsModel.find({});
   }
   await writeData(req.body.Name);
-  //const getAll = await readData();
-  //console.log(getAll)
 }); 
 
 const getAll = async () => {
@@ -55,8 +72,6 @@ const getAll = async () => {
   }
   return posts;
   };
-
-//server.get('/getall', getAll);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);
