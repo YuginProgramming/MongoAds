@@ -15,7 +15,7 @@
 </head>
 <body>
     <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">OgoLo</a>
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">OgOLO</a>
           <ul class="right hide-on-med-and-down">
             <li><a href="/new">Створити оголошення</a></li>
           </ul>
@@ -33,6 +33,15 @@
           <div class="row center">
             <h5 class="header col s12 light">Перегляньте перелік оголошень</h5>
           </div>
+          <section class="main">
+            <% for(let i = 0; i < front.length; ++i) { %>
+               <p>
+                <li><a href = "/<%=front[i]._id %>"> <%= front[i].fill %> </a>
+                </li>
+               </p>
+           <% } %>
+        </section>
+
           <div class="row center">
             <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Додати своє оголошення</a>
           </div>
@@ -111,7 +120,7 @@
         </div>
         <div class="footer-copyright">
           <div class="container">
-          Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+          Made by <a class="orange-text text-lighten-3" href="https://itgin.team/">ItGin</a>
           </div>
         </div>
       </footer>

@@ -14,48 +14,94 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data" action="/upload" name="testForm">
-    <div>
-        <h1>Форма оголошень</h1>
-        <input type="text" name="Name" placeholder="назва"><br>
-        <textarea type="text" name="Idea" class="text" placeholder="публікація"></textarea><br>
-        <input type="text" name="User" placeholder="користувач">
-    </div>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">OgOLO</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="/new">Створити оголошення</a></li>
+          </ul>
     
-    <div>
-        <h1>Форма відгуків</h1>
-        <textarea type="text" name="Opinion" class="text" placeholder="відгук"></textarea><br>
-        <input type="text" name="User" placeholder="користувач">
-        <input type="text" name="Id" placeholder="номер оголошення">
-    </div>
+          <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Створити оголошення/a></li>
+          </ul>
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">Меню</i></a>
+        </div>
+      </nav>
+    <form method="post" enctype="multipart/form-data" action="/upload" name="testForm">
+        <div>
+            <div class="row center">
+                <h5 class="header col s12 light">Заповніть поля свого оголошення</h5>
+            </div>
+            <input type="text" name="Name" placeholder="назва"><br>
+            <textarea type="text" name="Idea" class="text" placeholder="публікація"></textarea><br>
+            <input type="text" name="User" placeholder="користувач">
+        </div>
+    
+        <div>
+            <div class="row center">
+                <h5 class="header col s12 light">Напишіть відгук до оголошення</h5>
+            </div>
+            <textarea type="text" name="Opinion" class="text" placeholder="відгук"></textarea><br>
+            <input type="text" name="User" placeholder="користувач">
+            <input type="text" name="Id" placeholder="номер оголошення">
+        </div>
 
-    <button type="submit">send</button>
+        <button type="submit">send</button>
+        <div class="row center">
+            <a href="/new" type="submit" id="download-button" class="btn-large waves-effect waves-light orange">Опублікувати</a>
+          </div>
+          <br><br>
     </form>
 
-    <section class="main">
-        <h1>Оголошення</h1>
-        <% for(let i = 0; i < front.length; ++i) { %>
-           <p>
-            <li><a href = "/<%=front[i].fill %>"> <%= front[i].fill %> </a>
-            </li>
-           </p>
-       <% } %>
-    </section>
+    <footer class="page-footer orange">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Company Bio</h5>
+              <p class="grey-text text-lighten-4">Дошка прогресивних оголошень</p>
+    
+    
+            </div>
+            <div class="col l3 s12">
+              <h5 class="white-text">Settings</h5>
+              <ul>
+                <li><a class="white-text" href="#!">Link 1</a></li>
+                <li><a class="white-text" href="#!">Link 2</a></li>
+                <li><a class="white-text" href="#!">Link 3</a></li>
+                <li><a class="white-text" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+            <div class="col l3 s12">
+              <h5 class="white-text">Connect</h5>
+              <ul>
+                <li><a class="white-text" href="#!">Link 1</a></li>
+                <li><a class="white-text" href="#!">Link 2</a></li>
+                <li><a class="white-text" href="#!">Link 3</a></li>
+                <li><a class="white-text" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-<script>
-    const formEl = document.forms.testForm;
-    formEl.addEventListener('submit', async (ev) => {
-        ev.preventDefault();
-        
-        const formdata = new FormData(ev.target);
-        
-        const { data } = await axios.post('/ads', formdata);
-    });
+    <div class="footer-copyright">
+        <div class="container">
+        Made by <a class="orange-text text-lighten-3" href="https://itgin.team/">ItGin</a>
+        </div>
+      </div>
 
-    // setTimeout(async() => {
-    //     await axios.post('/test', {bio: {name: 'Yevhen', surname: 22}});
-    // }, 1000);
+    <script>
+        const formEl = document.forms.testForm;
+        formEl.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            
+            const formdata = new FormData(ev.target);
+            
+            const { data } = await axios.post('/ads', formdata);
+        });
 
-</script>
+        // setTimeout(async() => {
+        //     await axios.post('/test', {bio: {name: 'Yevhen', surname: 22}});
+        // }, 1000);
+
+    </script>
 </body>
 </html>

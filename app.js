@@ -64,16 +64,24 @@ server.post('/ads', upload.none(), async (req, res) => {
   });
   }
   createComment();
-  
-  async function writeData (data) {
-    const doc = await AdsModel.create({
-        fill: data 
-    });
-  };
-  async function readData () {
-      return await AdsModel.find({});
+
+  const createAd = async () => {
+    const commentDoc = await AdsModel.create({
+      title: req.body.Name,
+      fill: req.body.Idea
+  });
   }
-  await writeData(req.body.Name);
+  createAd();
+  //*********Цікавий варіант функції *************** */
+//   async function writeData (data) {
+//     const doc = await AdsModel.create({
+//         fill: data 
+//     });
+//   };
+//   async function readData () {
+//       return await AdsModel.find({});
+//   }
+//   await writeData(req.body.Name);
 }); 
 
 const getAll = async () => {
