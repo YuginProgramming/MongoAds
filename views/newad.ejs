@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="https://example.com/image.svg">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.js"></script>
+    <title>Дошка оголошень</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" action="/upload" name="testForm">
+    <div>
+        <h1>Форма оголошень</h1>
+        <input type="text" name="Name" placeholder="назва"><br>
+        <textarea type="text" name="Idea" class="text" placeholder="публікація"></textarea><br>
+        <input type="text" name="User" placeholder="користувач">
+    </div>
+    
+    <div>
+        <h1>Форма відгуків</h1>
+        <textarea type="text" name="Opinion" class="text" placeholder="відгук"></textarea><br>
+        <input type="text" name="User" placeholder="користувач">
+        <input type="text" name="Id" placeholder="номер оголошення">
+    </div>
+
+    <button type="submit">send</button>
+    </form>
+
+    <section class="main">
+        <h1>Оголошення</h1>
+        <% for(let i = 0; i < front.length; ++i) { %>
+           <p>
+            <li><a href = "/<%=front[i].fill %>"> <%= front[i].fill %> </a>
+            </li>
+           </p>
+       <% } %>
+    </section>
+
+<script>
+    const formEl = document.forms.testForm;
+    formEl.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        
+        const formdata = new FormData(ev.target);
+        
+        const { data } = await axios.post('/ads', formdata);
+    });
+
+    // setTimeout(async() => {
+    //     await axios.post('/test', {bio: {name: 'Yevhen', surname: 22}});
+    // }, 1000);
+
+</script>
+</body>
+</html>

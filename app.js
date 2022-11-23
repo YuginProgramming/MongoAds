@@ -13,6 +13,20 @@ server.set('views', './views');
 server.use(express.static('./static'));
 server.use(express.json());
 
+server.get('/', async (req, res) => {
+  let front = await getAll();
+  //res.render('main', {front: front[1].fill});
+  //напхати можна в об'єк функцій 
+  res.render('main', {front: front});
+});
+
+server.get('/new', async (req, res) => {
+let front = await getAll();
+//res.render('main', {front: front[1].fill});
+//напхати можна в об'єк функцій 
+res.render('newad', {front: front});
+});
+
 server.get('/:id', async (req, res) => {
   const { id } = req.params;
   const adContent = await getOne(id);
@@ -29,16 +43,16 @@ const getOne = async (id) => {
     postId = err;
   }
   return postId;
-}
+};
 
+const popAds =  async () => {
+  const mixComments = await CommentModel
+      .findOne({comment: '2 відгук з айді'})
+      .populate('ad');
+      //console.log(mixComments);
+};
+popAds();
 
-server.get('/', async (req, res) => {
-    let front = await getAll();
-    //res.render('main', {front: front[1].fill});
-    //напхати можна в об'єк функцій 
-    res.render('main', {front: front});
-});
-    
 server.post('/ads', upload.none(), async (req, res) => {
   //console.log(data)
   
@@ -75,3 +89,4 @@ const getAll = async () => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);
+console.log('server live')
